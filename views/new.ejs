@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Listing</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+    <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+    
+</head>
+<body class="bg-blueGray-50 min-h-screen flex justify-center items-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
+        <h2 class="text-2xl font-bold text-center text-pink-500 mb-6">Add Listing</h2>
+        <form id="listingForm" action="/listings" method="POST" class="space-y-4" enctype="multipart/form-data">
+            <div>
+                <label for="title" class="block text-blueGray-700 font-semibold mb-2">Title</label>
+                <input id="title" name="listing[title]" placeholder="Enter title" type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"/>
+                <p class="text-red-500 text-sm mt-1 hidden" id="titleError">Title is required.</p>
+            </div>
+            <div>
+                <label for="description" class="block text-blueGray-700 font-semibold mb-2">Description</label>
+                <textarea id="description" name="listing[description]" placeholder="Enter description" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"></textarea>
+                <p class="text-red-500 text-sm mt-1 hidden" id="descriptionError">Description is required.</p>
+            </div>
+            <div>
+                <label for="image" class="block text-blueGray-700 font-semibold mb-2">Upload Image</label>
+                <input id="image" name="listing[image]" type="file" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" style="border-color: rgb(63, 59, 59);" required/>
+             
+            </div>
+            <div>
+                <label for="price" class="block text-blueGray-700 font-semibold mb-2">Price</label>
+                <input id="price" name="listing[price]" placeholder="Enter price" type="number" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"/>
+                <p class="text-red-500 text-sm mt-1 hidden" id="priceError">Price is required.</p>
+            </div>
+            <div>
+                <label for="country" class="block text-blueGray-700 font-semibold mb-2">Country</label>
+                <input id="country" name="listing[country]" placeholder="Enter country" type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"/>
+                <p class="text-red-500 text-sm mt-1 hidden" id="countryError">Country is required.</p>
+            </div>
+            <div>
+                <label for="location" class="block text-blueGray-700 font-semibold mb-2">Location</label>
+                <input id="location" name="listing[location]" placeholder="Enter location" type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"/>
+                <p class="text-red-500 text-sm mt-1 hidden" id="locationError">Location is required.</p>
+            </div>
+          
+            <div class="text-center" style="margin-top: 50px; margin-right: 80px;">
+                <button type="submit" class="bg-pink-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-pink-600 transition duration-300">ADD</button>
+                <span id="formSuccess" class="success-text hidden">Form submitted successfully!</span>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('listingForm').addEventListener('submit', function(event) {
+            let isValid = true;
+
+            // Title validation
+            const title = document.getElementById('title');
+            const titleError = document.getElementById('titleError');
+            if (title.value.trim() === '') {
+                title.classList.add('border-red-500');
+                titleError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                title.classList.remove('border-red-500');
+                titleError.classList.add('hidden');
+            }
+
+            // Description validation
+            const description = document.getElementById('description');
+            const descriptionError = document.getElementById('descriptionError');
+            if (description.value.trim() === '') {
+                description.classList.add('border-red-500');
+                descriptionError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                description.classList.remove('border-red-500');
+                descriptionError.classList.add('hidden');
+            }
+
+          
+
+            // Price validation
+            const price = document.getElementById('price');
+            const priceError = document.getElementById('priceError');
+            if (price.value.trim() === '' || price.value <= 0) {
+                price.classList.add('border-red-500');
+                priceError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                price.classList.remove('border-red-500');
+                priceError.classList.add('hidden');
+            }
+
+            // Country validation
+            const country = document.getElementById('country');
+            const countryError = document.getElementById('countryError');
+            if (country.value.trim() === '') {
+                country.classList.add('border-red-500');
+                countryError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                country.classList.remove('border-red-500');
+                countryError.classList.add('hidden');
+            }
+
+            // Location validation
+            const location = document.getElementById('location');
+            const locationError = document.getElementById('locationError');
+            if (location.value.trim() === '') {
+                location.classList.add('border-red-500');
+                locationError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                location.classList.remove('border-red-500');
+                locationError.classList.add('hidden');
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

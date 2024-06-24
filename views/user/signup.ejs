@@ -1,0 +1,156 @@
+<% layout('./layout/boilerplate') -%>
+<!-- component -->
+<script src="https://kit.fontawesome.com/fdc47ca2be.js" crossorigin="anonymous"></script>
+<div class="flex min-h-screen items-center justify-center">
+  <div class="max-w-md w-full mx-auto  p-8 rounded-xl shadow-md mb-10">
+    <h2 class="text-2xl font-semibold text-blue-gray-900 mb-4">Sign Up on Wonder lust</h2>
+    <form class="space-y-4" id="signupform" method="post" action="/signup">
+        
+      <div>
+        <input
+          type="text"
+          id="username"
+          name="username" 
+          class="w-full border rounded-md px-3 py-2 placeholder-blue-gray-400 focus:outline-none focus:border-pink-500"
+          placeholder="User Name"
+          style="color: black; font-size: medium;"  />
+        <p class="text-red-500 text-sm mt-1 hidden" id="nameError">Username is required.</p>
+      </div>
+      <div>
+        <input
+          type="email"
+          id="email"
+          name="email" 
+          class="w-full border rounded-md px-3 py-2 placeholder-blue-gray-400 focus:outline-none focus:border-pink-500"
+          placeholder="Email"
+          style="color: black; font-size: medium;"    />
+        <p class="text-red-500 text-sm mt-1 hidden" id="emailError">Email is required.</p>
+      </div>
+      <div class="relative">
+        <input
+          type="password"
+          id="password"
+          name="password" 
+          class="w-full border rounded-md px-3 py-2 placeholder-blue-gray-400 focus:outline-none focus:border-pink-500 pr-10"
+          placeholder="Password"
+        />
+        <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+              id="togglePassword">
+          <svg class="h-5 w-5 text-gray-800" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" style="text-align: center;" >
+            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path d="M12 19a7 7 0 01-7-7m14 0a7 7 0 01-7 7m7-7H5" />
+          </svg>
+        </span>
+        <p class="text-red-500 text-sm mt-1 hidden" id="passwordError">Password is required.</p>
+      </div>
+      <div class="flex items-center">
+        <input type="checkbox" id="checkbox" name="checkbox"
+               class="mr-2">
+        <label for="checkbox" class="text-sm text-gray-700">
+          I agree to the
+          <a href="#" class="text-pink-500 hover:text-blue-700">Terms and Conditions</a>
+        </label>
+        <p class="text-red-500 text-sm mt-1 ml-2 hidden" id="checkboxError">Please agree to the Terms and Conditions.</p>
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-pink-500 text-white rounded-lg px-4 py-3 font-semibold shadow-md hover:bg-pink-600 transition-all"
+      >
+        Register
+      </button>
+      <p class="text-center text-gray-700 text-sm mt-4">
+        Already have an account?
+        <a href="/login" class="text-pink-500 hover:text-blue-700 font-semibold">Sign In</a>
+      </p>
+    </form>
+  </div>
+</div>
+<script>
+  // Function to toggle password visibility
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordField = document.getElementById('password');
+  togglePassword.addEventListener('click', function() {
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField.setAttribute('type', type);
+
+    // Change eye icon based on password visibility
+    if (type === 'password') {
+      togglePassword.innerHTML = `
+        <svg class="h-5 w-5 text-gray-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path d="M12 19a7 7 0 01-7-7m14 0a7 7 0 01-7 7m7-7H5" />
+        </svg>`;
+    } else {
+      togglePassword.innerHTML = `
+        <svg class="h-5 w-5 text-gray-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path d="M12 19a7 7 0 01-7-7m14 0a7 7 0 01-7 7m7-7H5" />
+        </svg>`;
+    }
+  });
+
+  document.getElementById('signupform').addEventListener('submit', function(event) {
+    let isValid = true;
+
+    // Username validation
+    const username = document.getElementById('username');
+    const nameError = document.getElementById('nameError');
+    if (username.value.trim() === '') {
+      username.classList.add('border-red-500');
+      username.classList.remove('border-green-500'); // Remove green border if previously set
+      nameError.classList.remove('hidden');
+      isValid = false;
+    } else {
+      username.classList.remove('border-red-500');
+      username.classList.add('border-green-500');
+      nameError.classList.add('hidden');
+    }
+
+    // Email validation
+    const email = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    if (email.value.trim() === '') {
+      email.classList.add('border-red-500');
+      email.classList.remove('border-green-500'); // Remove green border if previously set
+      emailError.classList.remove('hidden');
+      isValid = false;
+    } else {
+      email.classList.remove('border-red-500');
+      email.classList.add('border-green-500');
+      emailError.classList.add('hidden');
+    }
+
+    // Password validation
+    const password = document.getElementById('password');
+    const passwordError = document.getElementById('passwordError');
+    if (password.value.trim() === '') {
+      password.classList.add('border-red-500');
+      password.classList.remove('border-green-500'); // Remove green border if previously set
+      passwordError.classList.remove('hidden');
+      isValid = false;
+    } else {
+      password.classList.remove('border-red-500');
+      password.classList.add('border-green-500');
+      passwordError.classList.add('hidden');
+    }
+
+    // Checkbox validation
+    const checkbox = document.getElementById('checkbox');
+    const checkboxError = document.getElementById('checkboxError');
+    if (!checkbox.checked) {
+      checkboxError.classList.remove('hidden');
+      isValid = false;
+    } else {
+      checkboxError.classList.add('hidden');
+    }
+
+    if (!isValid) {
+      event.preventDefault(); // Prevent form submission if not valid
+    }
+  });
+</script>
+<!-- stylesheet -->
+<!-- <link rel="stylesheet" href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css" /> -->
+
+<!-- from cdn -->
+<script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>

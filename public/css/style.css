@@ -1,0 +1,52 @@
+.nav{
+  /* height: 5rem; */
+  position: sticky;
+  top: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 0 1rem; /* Horizontal padding */
+z-index: 2;
+  
+}
+
+  
+.fa-compass{
+color: #FF5A5F;
+font-size: 3rem; /* Adjust the size as needed */
+
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.fa-compass:hover {
+    color: #FF8588; /* Slightly lighter red on hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+  }
+ 
+ .anchor{
+    color: #333333; /* Dark text color */
+  padding: 0.5rem 1rem; /* Padding */
+  border-radius: 0.25rem; /* Rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  font-size: 20px;
+ }
+ .anchor:hover {
+    background-color: #FF5A5F; /* Red background on hover */
+    color: #ffffff; /* White text on hover */
+  }
+  
+  
+
+  /* Notification button */
+.nav button {
+    background-color: #ffffff; /* White background */
+    border: none; /* No border */
+    color: #333333; /* Dark text color */
+    padding: 0.5rem; /* Padding */
+    border-radius: 50%; /* Circular button */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  }
+  
+  .nav button:hover {
+    background-color: #FF5A5F; /* Red background on hover */
+    color: #ffffff; /* White text on hover */
+  }
+
+  

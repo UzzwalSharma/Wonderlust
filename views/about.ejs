@@ -1,0 +1,28 @@
+<!-- views/about.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- External CSS for custom styles -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">About the Developer</h5>
+            <p class="card-text">
+                My name is <%= aboutMe.name %>. I am a <%= aboutMe.year %> Computer Science and Engineering student.
+                <%= aboutMe.description %>
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

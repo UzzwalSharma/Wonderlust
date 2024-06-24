@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+    <!-- Include Google Fonts for an awesome font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+    <style>
+        .nb{
+            font-size: 45px;
+        }
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a202c;
+            color: #a0aec0;
+        }
+
+        .nav.dark-mode {
+            background-color: #2d3748;
+        }
+
+        .nav.dark-mode a {
+            color: #a0aec0;
+        }
+
+        .nav.dark-mode a:hover {
+            background-color: #e53e3e;
+            color: #edf2f7;
+        }
+
+        .nav.dark-mode button {
+            color: #a0aec0;
+        }
+
+        /* Hover effect for buttons */
+        .nav a,
+        .nav button {
+            transition: background-color 0.3s, color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* Matching the other buttons' styles */
+            font-family: 'Poppins', sans-serif; /* Apply Google Font */
+            font-size: 16px; /* Increased font size */
+        }
+
+        .nav a:hover,
+        .nav button:hover {
+            background-color: #e53e3e;
+            color: #edf2f7;
+        }
+
+        /* Remove the oval shape on the mode button */
+        .nav .dark-mode-toggle {
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* Matching the other buttons' styles */
+            font-family: 'Poppins', sans-serif; /* Apply Google Font */
+            font-size: 16px; /* Increased font size */
+        }
+
+        .nav .dark-mode-toggle:hover {
+            background-color: #e53e3e;
+            color: #edf2f7;
+        }
+
+        #compass:hover {
+            background-color: white;
+        }
+
+        /* Center the search form and make it responsive */
+        .search {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        .search form {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="bg-white shadow-md nav">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div class="relative flex h-16 items-center justify-between">
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <button type="button"
+                        class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                        aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <span class="absolute -inset-0.5"></span>
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            aria-hidden="true" data-slot="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            aria-hidden="true" data-slot="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                    <div class="flex flex-shrink-0 items-center">
+                        <a href="/listings" id="compass"><i class="fa-regular fa-compass" style="font-size: 2rem; margin-right: 50px;"></i></a>
+                    </div>
+
+                    <div class="hidden sm:ml-6 sm:block">
+                        <div class="flex space-x-4">
+                            <a href="/listings" class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 anchor nb mt-2">Home</a>
+
+                            <a href="/listings/new" class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 anchor nb mt-2">Airbnb your home</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <!-- Sign Up and Login buttons -->
+                    <div class="ml-4 flex items-center">
+                        <% if (!currentUser) { %>
+                        <div class="ml-4 flex items-center">
+                            <a href="/signup" class="rounded-md px-3 py-2  font-extrabold text-gray-700 nb text-9xl"><b>Sign Up</b></a>
+                            <a href="/login" class="ml-2 rounded-md px-3 py-2  font-extrabold text-gray-700 nb text-9xl"><b>Login</b></a>
+                        </div>
+                        <% } else { %>
+                        <div class="ml-4 flex items-center">
+                            <a href="/logout" class="ml-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 nb ">Log Out</a>
+                        </div>
+                        <% } %>
+                    </div>
+                    <!-- Dark Mode Toggle Button for larger screens -->
+                    <div class="ml-4 hidden sm:flex items-center">
+                        <button id="dark-mode-toggle" class="dark-mode-toggle px-3 py-2 text-sm font-medium text-gray-700 nb">Dark Mode</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="space-y-1 px-2 pb-3 pt-2">
+                <a href="/listings" class="rounded-md px-3 py-2 text-sm font-medium text-gray-700">Explore</a>
+                <a href="/listings/new" class="rounded-md px-3 py-2 text-sm font-medium text-gray-700">New Listing</a>
+                <!-- Dark Mode Toggle Button for small screens -->
+                 
+                <button id="dark-mode-toggle-mobile" class="dark-mode-toggle text-sm font-medium text-gray-700 flex justify-between">Dark Mode</button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            var menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        function toggleDarkMode() {
+            var body = document.body;
+            var nav = document.querySelector('.nav');
+            var buttons = document.querySelectorAll('.dark-mode-toggle');
+
+            body.classList.toggle('dark-mode');
+            nav.classList.toggle('dark-mode');
+
+            buttons.forEach(button => {
+                button.textContent = body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+            });
+
+            // Save user preference
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        document.querySelectorAll('.dark-mode-toggle').forEach(button => {
+            button.addEventListener('click', toggleDarkMode);
+        });
+
+        // Load user preference
+        document.addEventListener('DOMContentLoaded', (event) => {
+            if (localStorage.getItem('theme') === 'dark') {
+                toggleDarkMode();
+            }
+        });
+    </script>
+</body>
+
+</html>

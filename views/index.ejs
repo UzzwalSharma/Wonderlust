@@ -1,0 +1,157 @@
+<% layout('./layout/boilerplate') -%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listings</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <style>
+        /* Custom styles for large screens */
+        @media (min-width: 1024px) {
+            .listing-card {
+                width: 100%;
+                max-width: 32rem;
+                margin: 0 auto;
+                border-radius: 0.5rem;
+                overflow: hidden;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .listing-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                background-color: rgb(218, 218, 218);
+                opacity: .9;
+            }
+
+            .listing-card img {
+                height: 20rem;
+                object-fit: cover;
+            }
+        }
+
+        .listing-card a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .listing-card a:hover {
+            text-decoration: none;
+        }
+
+        .listing-card .btn {
+            background-color: #ec4899;
+            color: white;
+        }
+
+        .listing-card .btn:hover {
+            background-color: #db2777;
+        }
+
+        /* Styles for autocomplete suggestions */
+        .autocomplete-suggestions {
+            border: 1px solid #ddd;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            background-color: #fff;
+        }
+
+        .autocomplete-suggestion {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .autocomplete-suggestion:hover {
+            background-color: #f0f0f0;
+        }
+
+        .autocomplete-no-results {
+            padding: 8px;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body class="bg-blueGray-50">
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Flash Messages -->
+
+        <!-- Search Form -->
+        <div class="mb-6 relative">
+            <form action="/search" method="GET" onsubmit="return validateSearch()">
+                <input type="text" id="countrySearch" class="px-4 py-2 border border-gray-300 rounded-md mr-2 w-64" name="country" placeholder="Search by country..." oninput="showSuggestions(this.value)">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Search</button>
+            </form>
+            <div id="autocompleteSuggestions" class="autocomplete-suggestions"></div>
+        </div>
+
+        <!-- Listing Results -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+            <% alllistings.forEach(listing => { %>
+            <div class="listing-card bg-white rounded-lg overflow-hidden shadow-lg">
+                <a href="/listings/<%= listing._id %>">
+                    <img alt="Listing Image" src="<%= listing.image.url %>" class="w-full">
+                    <div class="p-4">
+                        <h4 class="text-xl font-bold text-pink-500 mb-2"><%= listing.title %></h4>
+                        <h4 class="text-xl font-bold text-pink-500 mb-2">&#8377;<%= listing.price %>/night</h4>
+                        <p class="text-md font-light text-blueGray-700"><%= listing.description %></p>
+                    </div>
+                </a>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <script>
+        const countries = ["India","Italy","Mexico",'Switzerland',"Tanzania",'Indonesia', 'Netherlands',"Fiji","Canada","United States", "Thailand'", "United Kingdom", "United Arab Emirates"]; // Add more countries as needed
+
+        function showSuggestions(query) {
+            const suggestionsContainer = document.getElementById('autocompleteSuggestions');
+            suggestionsContainer.innerHTML = '';
+            if (query.length === 0) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+            const filteredCountries = countries.filter(country => country.toLowerCase().includes(query.toLowerCase()));
+            if (filteredCountries.length > 0) {
+                filteredCountries.forEach(country => {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'autocomplete-suggestion';
+                    suggestion.textContent = country;
+                    suggestion.onclick = () => {
+                        document.getElementById('countrySearch').value = country;
+                        suggestionsContainer.innerHTML = '';
+                        suggestionsContainer.style.display = 'none';
+                    };
+                    suggestionsContainer.appendChild(suggestion);
+                });
+            } else {
+                const noResults = document.createElement('div');
+                noResults.className = 'autocomplete-no-results';
+                noResults.textContent = 'No results found';
+                suggestionsContainer.appendChild(noResults);
+            }
+            suggestionsContainer.style.display = 'block';
+        }
+
+        function validateSearch() {
+            const searchValue = document.getElementById('countrySearch').value;
+            if (!countries.includes(searchValue)) {
+                alert('Please select a valid country from the suggestions.');
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>
