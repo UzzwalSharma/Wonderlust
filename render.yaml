@@ -11,11 +11,8 @@ services:
         fromDatabase:
           name: db  # Ensure this matches the database name in your Render dashboard
           property: connectionString
-    envFiles:
-      - path: .env  # Path to your local .env file containing environment variables
-    healthCheckPath: /  # Replace with your health check endpoint if different
-    plan: starter  # Replace with your desired Render plan
+   
 
 databases:
   - name: db  # Replace with your database name used in `fromDatabase` above
-    provider: mongodb  # Replace with your database provider if different
+   
