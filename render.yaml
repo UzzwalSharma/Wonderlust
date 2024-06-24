@@ -10,5 +10,5 @@ services:
         value: production
       - key: ATLASDB_URL
         fromDatabase:
-          name: my-database
+          name: db
           property: connectionString
