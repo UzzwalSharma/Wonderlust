@@ -133,7 +133,7 @@ async function checkReviewOwnership(req, res, next) {
 
 // Routes
 app.get("/",(req,res)=>{
-res.send("hello");
+res.redirect("/listings");
 })
 app.get('/signup', (req, res) => {
   res.render('./user/signup.ejs');
