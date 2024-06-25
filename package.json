@@ -7,10 +7,10 @@
   "name": "my-tailwind-ejs-project",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "build:css": "npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/styles.css --watch",
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
